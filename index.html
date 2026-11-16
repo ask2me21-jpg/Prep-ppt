@@ -181,7 +181,67 @@ body {
 .card-body {
   font-size: clamp(.85rem, 1.5vw, 1rem);
   line-height: 1.5; color: var(--text);
+  word-break: break-word;
 }
+
+/* ================= PORTAL LINK BUTTONS ================= */
+.portal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 1.6rem;
+  padding: 18px 34px;
+  background: linear-gradient(135deg, #0B5ED7, #4f8fff);
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: 18px;
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  font-weight: 800;
+  letter-spacing: .02em;
+  box-shadow: 0 12px 34px rgba(11,94,215,.35);
+  transition: transform .22s cubic-bezier(.4,0,.2,1), box-shadow .22s;
+  word-break: break-all;
+}
+.portal-link::before { content: "🔗"; font-size: 1.35em; flex-shrink: 0; }
+.portal-link::after  { content: "↗"; font-size: 1.25em; opacity: .9; margin-left: 4px; flex-shrink: 0; }
+.portal-link:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 46px rgba(11,94,215,.5);
+}
+.portal-link:active { transform: translateY(-1px) scale(.99); }
+
+.portal-link-alt {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.4rem;
+  margin-left: .8rem;
+  padding: 14px 26px;
+  background: #fff;
+  color: #0B5ED7 !important;
+  text-decoration: none;
+  border: 2px solid #0B5ED7;
+  border-radius: 16px;
+  font-size: clamp(.95rem, 1.8vw, 1.15rem);
+  font-weight: 800;
+  transition: all .22s;
+  word-break: break-all;
+}
+.portal-link-alt::before { content: "➡️"; font-size: 1.1em; }
+.portal-link-alt:hover {
+  background: #0B5ED7;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(11,94,215,.35);
+}
+
+/* inline link inside master-links cards */
+.card-body a {
+  color: #0B5ED7;
+  font-weight: 700;
+  text-decoration: none;
+}
+.card-body a:hover { text-decoration: underline; }
 
 /* ================= RIGHT DOCK — NAVIGATION ================= */
 .dock {
@@ -241,6 +301,10 @@ body {
   .watermark::before { font-size: .85rem; }
   .slide-badge { top: 12px; left: 16px; font-size: .65rem; padding: 3px 10px; }
 }
+@media (max-width: 600px) {
+  .portal-link-alt { margin-left: 0; display: flex; }
+  .portal-link, .portal-link-alt { width: 100%; justify-content: center; }
+}
 @media (max-width: 500px) {
   #deck { padding: 8px 66px 8px 8px; }
   .slide { inset: 8px 66px 8px 8px; padding: 3vh 4vw; }
@@ -262,7 +326,7 @@ body {
 <!-- RIGHT DOCK — NAVIGATION -->
 <div class="dock" role="navigation" aria-label="Slide navigation">
   <button id="prev" aria-label="Previous slide" title="Previous">▲</button>
-  <div class="dock-counter" id="counter">1 / 80</div>
+  <div class="dock-counter" id="counter">1 / 81</div>
   <button id="next" aria-label="Next slide" title="Next">▼</button>
   <div class="dock-divider"></div>
   <button id="fullscreen" aria-label="Fullscreen" title="Fullscreen">⛶</button>
@@ -270,7 +334,7 @@ body {
 
 <script>
 /* ============================================================
-   80 SLIDES — FULLY POPULATED
+   81 SLIDES — FULLY POPULATED WITH PORTAL LINKS
    ============================================================ */
 const slides = [
 
@@ -371,7 +435,8 @@ const slides = [
 
 { emoji:"✅", titleEn:"NCS — Quick Recap", titleMr:"NCS — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">1 portal · 2 minutes to register · 3 actions per week.</div>
-          <div class="mr">१ पोर्टल · नोंदणीला २ मिनिटे · दर आठवड्याला ३ कृती.</div>` },
+          <div class="mr">१ पोर्टल · नोंदणीला २ मिनिटे · दर आठवड्याला ३ कृती.</div>
+          <a href="https://www.ncs.gov.in" target="_blank" rel="noopener" class="portal-link">ncs.gov.in</a>` },
 
 /* ============= PORTAL 2: AICTE (14–21) ============= */
 
@@ -426,7 +491,8 @@ const slides = [
 
 { emoji:"✅", titleEn:"AICTE — Quick Recap", titleMr:"AICTE — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">1 profile → many ministries & companies → QR certificate + degree credits.</div>
-          <div class="mr">१ प्रोफाइल → अनेक मंत्रालये व कंपन्या → QR प्रमाणपत्र + पदवी क्रेडिट.</div>` },
+          <div class="mr">१ प्रोफाइल → अनेक मंत्रालये व कंपन्या → QR प्रमाणपत्र + पदवी क्रेडिट.</div>
+          <a href="https://internship.aicte-india.org" target="_blank" rel="noopener" class="portal-link">internship.aicte-india.org</a>` },
 
 /* ============= PORTAL 3: SIDH (22–29) ============= */
 
@@ -482,7 +548,8 @@ const slides = [
 
 { emoji:"✅", titleEn:"SIDH — Quick Recap", titleMr:"SIDH — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">Learn → certify → get matched → get hired. All free.</div>
-          <div class="mr">शिका → प्रमाणित व्हा → जुळवा → नोकरी मिळवा. सर्व मोफत.</div>` },
+          <div class="mr">शिका → प्रमाणित व्हा → जुळवा → नोकरी मिळवा. सर्व मोफत.</div>
+          <a href="https://skillindiadigital.gov.in" target="_blank" rel="noopener" class="portal-link">skillindiadigital.gov.in</a>` },
 
 /* ============= PORTAL 4: PMIS (30–37) ============= */
 
@@ -541,7 +608,8 @@ const slides = [
 
 { emoji:"✅", titleEn:"PMIS — Quick Recap", titleMr:"PMIS — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">1 year · ₹9k/month · top company certificate · insurance.</div>
-          <div class="mr">१ वर्ष · ₹९ हजार/महिना · टॉप कंपनीचे प्रमाणपत्र · विमा.</div>` },
+          <div class="mr">१ वर्ष · ₹९ हजार/महिना · टॉप कंपनीचे प्रमाणपत्र · विमा.</div>
+          <a href="https://pminternship.mca.gov.in" target="_blank" rel="noopener" class="portal-link">pminternship.mca.gov.in</a>` },
 
 /* ============= PORTAL 5: NAPS (38–45) ============= */
 
@@ -594,7 +662,9 @@ const slides = [
 
 { emoji:"✅", titleEn:"NAPS — Quick Recap", titleMr:"NAPS — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">Learn + earn + certificate + NCS link.</div>
-          <div class="mr">शिका + कमवा + प्रमाणपत्र + NCS जोड.</div>` },
+          <div class="mr">शिका + कमवा + प्रमाणपत्र + NCS जोड.</div>
+          <a href="https://apprenticeshipindia.gov.in" target="_blank" rel="noopener" class="portal-link">apprenticeshipindia.gov.in</a>
+          <a href="https://mybharat.gov.in" target="_blank" rel="noopener" class="portal-link-alt">MY Bharat</a>` },
 
 /* ============= PORTAL 6: UNSTOP (46–53) ============= */
 
@@ -647,7 +717,8 @@ const slides = [
 
 { emoji:"✅", titleEn:"Unstop — Quick Recap", titleMr:"Unstop — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">Prove skill → get noticed → get hired.</div>
-          <div class="mr">कौशल्य सिद्ध करा → लक्षात या → नोकरी मिळवा.</div>` },
+          <div class="mr">कौशल्य सिद्ध करा → लक्षात या → नोकरी मिळवा.</div>
+          <a href="https://unstop.com" target="_blank" rel="noopener" class="portal-link">unstop.com</a>` },
 
 /* ============= PORTAL 7: FORAGE (54–61) ============= */
 
@@ -699,7 +770,8 @@ const slides = [
 
 { emoji:"✅", titleEn:"Forage — Quick Recap", titleMr:"Forage — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">1 simulation → 1 certificate → 1 strong resume line.</div>
-          <div class="mr">१ सिम्युलेशन → १ प्रमाणपत्र → १ मजबूत रेझ्युमे ओळ.</div>` },
+          <div class="mr">१ सिम्युलेशन → १ प्रमाणपत्र → १ मजबूत रेझ्युमे ओळ.</div>
+          <a href="https://www.theforage.com" target="_blank" rel="noopener" class="portal-link">theforage.com</a>` },
 
 /* ============= PORTAL 8: GITHUB + LINKEDIN (62–69) ============= */
 
@@ -754,9 +826,11 @@ const slides = [
 
 { emoji:"✅", titleEn:"GitHub + LinkedIn — Quick Recap", titleMr:"GitHub + LinkedIn — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">Code visible + profile credible = opportunity.</div>
-          <div class="mr">कोड दिसणारा + प्रोफाइल विश्वासार्ह = संधी.</div>` },
+          <div class="mr">कोड दिसणारा + प्रोफाइल विश्वासार्ह = संधी.</div>
+          <a href="https://github.com" target="_blank" rel="noopener" class="portal-link">github.com</a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener" class="portal-link-alt">linkedin.com</a>` },
 
-/* ============= SECTION C: BRINGING IT TOGETHER (70–80) ============= */
+/* ============= SECTION C: BRINGING IT TOGETHER (70–81) ============= */
 
 { emoji:"🗺️", titleEn:"Your 90‑Day Plan", titleMr:"तुमची ९०‑दिवसांची योजना",
   bodyEn:`<div class="grid-2">
@@ -809,19 +883,67 @@ const slides = [
 
 { emoji:"🎯", titleEn:"Your First Task TODAY", titleMr:"तुमचे पहिले काम आज",
   bodyEn:`<div class="en">Open <strong>ncs.gov.in</strong> and register. That’s it.</div>
-          <div class="mr"><strong>ncs.gov.in</strong> उघडा आणि नोंदणी करा. बस एवढेच.</div>` },
+          <div class="mr"><strong>ncs.gov.in</strong> उघडा आणि नोंदणी करा. बस एवढेच.</div>
+          <a href="https://www.ncs.gov.in" target="_blank" rel="noopener" class="portal-link">ncs.gov.in — Register Now</a>` },
 
 { emoji:"📅", titleEn:"Your First Task THIS WEEK", titleMr:"तुमचे पहिले काम या आठवड्यात",
   bodyEn:`<div class="en">Create GitHub account + upload 1 college project.</div>
-          <div class="mr">GitHub खाते तयार करा + १ कॉलेज प्रोजेक्ट अपलोड करा.</div>` },
+          <div class="mr">GitHub खाते तयार करा + १ कॉलेज प्रोजेक्ट अपलोड करा.</div>
+          <a href="https://github.com" target="_blank" rel="noopener" class="portal-link">github.com</a>` },
 
 { emoji:"📆", titleEn:"Your First Task THIS MONTH", titleMr:"तुमचे पहिले काम या महिन्यात",
   bodyEn:`<div class="en">Complete 1 Forage simulation + 1 SIDH module.</div>
-          <div class="mr">१ Forage सिम्युलेशन + १ SIDH मॉड्यूल पूर्ण करा.</div>` },
+          <div class="mr">१ Forage सिम्युलेशन + १ SIDH मॉड्यूल पूर्ण करा.</div>
+          <a href="https://www.theforage.com" target="_blank" rel="noopener" class="portal-link">theforage.com</a>
+          <a href="https://skillindiadigital.gov.in" target="_blank" rel="noopener" class="portal-link-alt">SIDH</a>` },
 
 { emoji:"🛡️", titleEn:"Remember", titleMr:"लक्षात ठेवा",
   bodyEn:`<div class="en">Government portals are <strong>free</strong>. Never pay anyone for these services.</div>
           <div class="mr">सरकारी पोर्टल <strong>मोफत</strong> आहेत. या सेवांसाठी कोणालाही पैसे देऊ नका.</div>` },
+
+/* ============= MASTER LINKS SLIDE (80) ============= */
+
+{ emoji:"🔗", titleEn:"All 8 Portals — Save This Slide", titleMr:"सर्व ८ पोर्टल — ही स्लाइड जतन करा",
+  bodyEn:`<div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏛️</span><span class="card-title">NCS</span></div>
+      <div class="card-body"><a href="https://www.ncs.gov.in" target="_blank" rel="noopener">ncs.gov.in</a></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🎓</span><span class="card-title">AICTE</span></div>
+      <div class="card-body"><a href="https://internship.aicte-india.org" target="_blank" rel="noopener">internship.aicte-india.org</a></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">📱</span><span class="card-title">SIDH</span></div>
+      <div class="card-body"><a href="https://skillindiadigital.gov.in" target="_blank" rel="noopener">skillindiadigital.gov.in</a></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🇮🇳</span><span class="card-title">PMIS</span></div>
+      <div class="card-body"><a href="https://pminternship.mca.gov.in" target="_blank" rel="noopener">pminternship.mca.gov.in</a></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🔧</span><span class="card-title">NAPS</span></div>
+      <div class="card-body"><a href="https://apprenticeshipindia.gov.in" target="_blank" rel="noopener">apprenticeshipindia.gov.in</a></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏆</span><span class="card-title">Unstop</span></div>
+      <div class="card-body"><a href="https://unstop.com" target="_blank" rel="noopener">unstop.com</a></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">💼</span><span class="card-title">Forage</span></div>
+      <div class="card-body"><a href="https://www.theforage.com" target="_blank" rel="noopener">theforage.com</a></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">💻</span><span class="card-title">GitHub · LinkedIn</span></div>
+      <div class="card-body">
+        <a href="https://github.com" target="_blank" rel="noopener">github.com</a><br>
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener">linkedin.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="mr" style="margin-top:1.2rem;font-weight:600;">📸 या स्लाइडचा स्क्रीनशॉट घ्या आणि फोनमध्ये जतन करा.</div>` },
+
+/* ============= THANK YOU SLIDE (81) ============= */
 
 { emoji:"🙏", titleEn:"Thank You", titleMr:"धन्यवाद",
   bodyEn:`<div class="en"><strong>Dr Sachin Ambekar</strong></div>
