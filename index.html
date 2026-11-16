@@ -5,209 +5,267 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Career Portals for CS Students — Dr Sachin Ambekar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --accent: #0B5ED7;
-    --accent-light: #e7f0ff;
-    --text: #1a1a1a;
-    --muted: #5a5a5a;
-    --radius: 20px;
-    --shadow: 0 12px 40px rgba(0,0,0,.08);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { height:100%; overflow:hidden; }
-  body {
-    font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
-    background: #f6f8fc;
-    color: var(--text);
-    display:flex; flex-direction:column;
-    -webkit-font-smoothing:antialiased;
-  }
-  #deck { flex:1; position:relative; overflow:hidden; }
-  .slide {
-    position:absolute; inset:0;
-    display:flex; flex-direction:column;
-    justify-content:center; align-items:flex-start;
-    padding: 5vh 6vw;
-    background: #fff;
-    opacity:0; transform: translateX(40px);
-    transition: opacity .45s ease, transform .45s ease;
-    pointer-events:none;
-    overflow-y:auto;
-  }
-  .slide.active {
-    opacity:1; transform: translateX(0);
-    pointer-events:auto;
-    z-index:2;
-  }
-  .slide .emoji {
-    font-size: clamp(3rem, 8vw, 5rem);
-    line-height:1;
-    margin-bottom: 1.2rem;
-  }
-  .slide h1 {
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    font-weight:800;
-    color: var(--accent);
-    line-height:1.15;
-    margin-bottom: .4rem;
-    letter-spacing:-0.02em;
-  }
-  .slide h2 {
-    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-    font-weight:600;
-    color: var(--muted);
-    margin-bottom: 1rem;
-  }
-  .slide .en {
-    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    font-weight:600;
-    line-height:1.5;
-    margin-bottom: .6rem;
-    max-width: 95%;
-  }
-  .slide .mr {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: clamp(1rem, 2vw, 1.35rem);
-    font-weight:500;
-    color: var(--muted);
-    line-height:1.6;
-    max-width: 95%;
-  }
-  .slide .divider {
-    width: 80px; height: 5px;
-    background: var(--accent);
-    border-radius: 3px;
-    margin: 1rem 0;
-  }
-  .slide ul {
-    list-style: none;
-    width: 100%;
-    max-width: 950px;
-    margin-top: .6rem;
-  }
-  .slide li {
-    display:flex; gap: .7rem;
-    align-items:flex-start;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    line-height:1.55;
-    padding: .4rem 0;
-  }
-  .slide li::before {
-    content: "✅";
-    font-size: 1.2em;
-    flex-shrink:0;
-  }
-  .grid-2 {
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-    width:100%;
-    max-width: 1000px;
-    margin-top: 1rem;
-  }
-  .card {
-    background: var(--accent-light);
-    border-radius: var(--radius);
-    padding: 1.2rem 1.4rem;
-    box-shadow: var(--shadow);
-  }
-  .card .card-title {
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-    font-weight:700;
-    color: var(--accent);
-    margin-bottom: .3rem;
-  }
-  .card .card-body {
-    font-size: clamp(.9rem, 1.6vw, 1.1rem);
-    line-height:1.5;
-  }
-  .watermark {
-    position: fixed;
-    bottom: 14px;
-    right: 22px;
-    font-size: clamp(.75rem, 1.2vw, .95rem);
-    font-weight: 700;
-    color: var(--accent);
-    opacity: .7;
-    letter-spacing: .04em;
-    z-index: 999;
-    background: rgba(255,255,255,.85);
-    padding: 4px 12px;
-    border-radius: 30px;
-    pointer-events:none;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(11,94,215,.15);
-  }
-  #nav {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: .7rem 1.2rem;
-    background: #fff;
-    border-top: 1px solid #e5e9f2;
-    flex-shrink:0;
-    gap: 1rem;
-    flex-wrap:wrap;
-  }
-  #nav button {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: .6rem 1.2rem;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background .2s, transform .1s;
-    font-family: inherit;
-  }
-  #nav button:hover { background:#094bb0; }
-  #nav button:active { transform:scale(.96); }
-  #nav button:disabled { opacity:.35; cursor:not-allowed; }
-  #counter {
-    font-weight:700;
-    font-size: 1rem;
-    color: var(--muted);
-    white-space:nowrap;
-  }
-  #progress {
-    flex:1;
-    height: 6px;
-    background:#e5e9f2;
-    border-radius: 3px;
-    overflow:hidden;
-    min-width: 100px;
-  }
-  #progress-bar {
-    height:100%;
-    width:0%;
-    background: var(--accent);
-    border-radius:3px;
-    transition: width .35s ease;
-  }
-  @media (max-width: 768px) {
-    .slide { padding: 4vh 5vw; }
-    .grid-2 { grid-template-columns: 1fr; }
-    .slide .en, .slide .mr { max-width:100%; }
-    #nav { padding:.5rem .8rem; }
-    #nav button { padding:.5rem .9rem; font-size:.9rem; }
-  }
+:root {
+  --accent: #0B5ED7;
+  --accent-dark: #094bb0;
+  --accent-soft: #f0f5ff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --shadow-sm: 0 2px 8px rgba(11,94,215,.08);
+  --shadow-md: 0 8px 30px rgba(11,94,215,.12);
+  --shadow-lg: 0 16px 50px rgba(11,94,215,.18);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; overflow:hidden; }
+body {
+  font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef4ff 100%);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================= TOP PROGRESS BAR ================= */
+.top-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 5px;
+  background: rgba(11,94,215,.08); z-index: 999;
+}
+.top-progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #0B5ED7, #4f8fff, #0B5ED7);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  border-radius: 0 3px 3px 0;
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes shimmer {
+  0% { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ================= WATERMARK — TOP RIGHT ================= */
+.watermark {
+  position: fixed; top: 20px; right: 24px;
+  background: rgba(255,255,255,.95);
+  color: var(--accent);
+  padding: 10px 20px 10px 16px;
+  border-radius: 40px;
+  font-weight: 700; font-size: .9rem; letter-spacing: .02em;
+  box-shadow: var(--shadow-md);
+  border: 1.5px solid rgba(11,94,215,.18);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex; align-items: center; gap: 8px;
+}
+.watermark::before { content: "✒️"; font-size: 1rem; }
+
+/* ================= DECK & SLIDE ================= */
+#deck {
+  position: absolute; inset: 0; overflow: hidden;
+  padding: 24px 110px 24px 24px;
+}
+.slide {
+  position: absolute;
+  inset: 24px 110px 24px 24px;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  padding: 4vh 4vw;
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0; transform: scale(.98) translateY(10px);
+  transition: opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+  overflow-y: auto; overflow-x: hidden;
+}
+.slide.active {
+  opacity: 1; transform: scale(1) translateY(0);
+  pointer-events: auto; z-index: 2;
+}
+.slide::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0; transition: opacity .5s; border-radius: 28px 28px 0 0;
+}
+.slide.active::before { opacity: .35; }
+
+/* ================= SLIDE BADGE ================= */
+.slide-badge {
+  position: absolute; top: 18px; left: 24px;
+  background: var(--accent-soft); color: var(--accent);
+  padding: 4px 12px; border-radius: 20px;
+  font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+  border: 1px solid rgba(11,94,215,.15);
+  display: flex; align-items: center; gap: 6px;
+}
+.slide-badge::before { content: "📄"; font-size: .85rem; }
+
+/* ================= TYPOGRAPHY ================= */
+.slide .emoji {
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  line-height: 1; margin-bottom: 1rem;
+  display: inline-block;
+  filter: drop-shadow(0 6px 16px rgba(11,94,215,.2));
+}
+.slide h1 {
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  font-weight: 800; color: var(--text);
+  line-height: 1.15; margin-bottom: .3rem;
+  letter-spacing: -0.02em;
+}
+.slide h2 {
+  font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+  font-weight: 600; color: var(--muted);
+  margin-bottom: 1rem;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+.slide .en {
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+  font-weight: 600; line-height: 1.5;
+  margin-bottom: .6rem; max-width: 95%;
+}
+.slide .mr {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: clamp(.95rem, 1.8vw, 1.25rem);
+  font-weight: 500; color: var(--muted);
+  line-height: 1.6; max-width: 95%;
+}
+.slide .divider {
+  width: 80px; height: 5px;
+  background: linear-gradient(90deg, var(--accent), #4f8fff);
+  border-radius: 3px; margin: 1rem 0;
+}
+
+/* ================= LISTS ================= */
+.slide ul {
+  list-style: none; width: 100%;
+  max-width: 950px; margin-top: .6rem;
+}
+.slide li {
+  display: flex; gap: .8rem; align-items: flex-start;
+  font-size: clamp(.95rem, 1.9vw, 1.2rem);
+  line-height: 1.55; padding: .45rem 0;
+}
+.slide li::before {
+  content: "✅"; font-size: 1.1em;
+  flex-shrink: 0; margin-top: 2px;
+}
+
+/* ================= CARDS ================= */
+.grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; width: 100%; max-width: 1000px; margin-top: 1rem;
+}
+.card {
+  background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
+  border-radius: 18px; padding: 1.1rem 1.3rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(11,94,215,.08);
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.card-header {
+  display: flex; align-items: center;
+  gap: .5rem; margin-bottom: .4rem;
+}
+.card-icon { font-size: 1.3rem; }
+.card-title {
+  font-size: clamp(.95rem, 1.6vw, 1.1rem);
+  font-weight: 700; color: var(--accent);
+}
+.card-body {
+  font-size: clamp(.85rem, 1.5vw, 1rem);
+  line-height: 1.5; color: var(--text);
+}
+
+/* ================= RIGHT DOCK — NAVIGATION ================= */
+.dock {
+  position: fixed; right: 20px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.95);
+  padding: 14px 10px;
+  border-radius: 40px;
+  box-shadow: var(--shadow-lg);
+  border: 1.5px solid rgba(11,94,215,.12);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+.dock button {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: none; color: var(--accent);
+  font-size: 1.05rem; font-weight: 700;
+  cursor: pointer;
+  transition: all .2s cubic-bezier(.4,0,.2,1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: inherit;
+}
+.dock button:hover {
+  background: var(--accent); color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(11,94,215,.35);
+}
+.dock button:active { transform: scale(.95); }
+.dock button:disabled { opacity: .3; cursor: not-allowed; }
+.dock-counter {
+  font-weight: 800; font-size: .78rem;
+  color: var(--text); padding: 4px 0;
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.dock-divider {
+  width: 22px; height: 1.5px;
+  background: rgba(11,94,215,.18);
+  border-radius: 2px; margin: 2px 0;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  #deck { padding: 12px 80px 12px 12px; }
+  .slide { inset: 12px 80px 12px 12px; padding: 3vh 5vw; border-radius: 20px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .slide .en, .slide .mr { max-width: 100%; }
+  .dock { right: 10px; padding: 10px 7px; gap: 6px; }
+  .dock button { width: 38px; height: 38px; font-size: .95rem; }
+  .dock-counter { font-size: .68rem; }
+  .watermark { top: 12px; right: 12px; padding: 7px 14px 7px 12px; font-size: .75rem; }
+  .watermark::before { font-size: .85rem; }
+  .slide-badge { top: 12px; left: 16px; font-size: .65rem; padding: 3px 10px; }
+}
+@media (max-width: 500px) {
+  #deck { padding: 8px 66px 8px 8px; }
+  .slide { inset: 8px 66px 8px 8px; padding: 3vh 4vw; }
+  .slide .emoji { font-size: 2.5rem; margin-bottom: .6rem; }
+}
 </style>
 </head>
 <body>
 
+<!-- TOP PROGRESS BAR -->
+<div class="top-progress"><div class="top-progress-bar" id="topProgress"></div></div>
+
+<!-- WATERMARK — TOP RIGHT -->
 <div class="watermark">Dr Sachin Ambekar</div>
 
+<!-- SLIDE DECK -->
 <div id="deck" role="region" aria-label="Presentation slides"></div>
 
-<div id="nav">
-  <button id="prev" aria-label="Previous slide">◀ Prev</button>
-  <div id="progress"><div id="progress-bar"></div></div>
-  <span id="counter">1 / 80</span>
-  <button id="next" aria-label="Next slide">Next ▶</button>
-  <button id="fullscreen" aria-label="Fullscreen">⛶</button>
+<!-- RIGHT DOCK — NAVIGATION -->
+<div class="dock" role="navigation" aria-label="Slide navigation">
+  <button id="prev" aria-label="Previous slide" title="Previous">▲</button>
+  <div class="dock-counter" id="counter">1 / 80</div>
+  <button id="next" aria-label="Next slide" title="Next">▼</button>
+  <div class="dock-divider"></div>
+  <button id="fullscreen" aria-label="Fullscreen" title="Fullscreen">⛶</button>
 </div>
 
 <script>
@@ -216,17 +274,17 @@
    ============================================================ */
 const slides = [
 
-/* ================= SECTION A: WELCOME (1–5) ================= */
+/* ============= SECTION A: WELCOME (1–5) ============= */
 
 { emoji:"🚀", titleEn:"Your Career Starts Here", titleMr:"तुमची करिअर इथून सुरू होते",
   bodyEn:`<div class="en">8 free government & industry portals every CS student must use.</div>
           <div class="divider"></div>
           <div class="mr">प्रत्येक संगणक विद्यार्थ्याने वापरली पाहिजे अशी ८ मोफत सरकारी व उद्योग पोर्टल.</div>
-          <div style="margin-top:1.5rem;font-size:1rem;color:#5a5a5a;">Dr Sachin Ambekar · For Satara CS Students · 2026</div>` },
+          <div style="margin-top:1.5rem;font-size:1rem;color:#64748b;font-weight:600;">Dr Sachin Ambekar · Career Guidance for CS Students</div>` },
 
 { emoji:"🌍", titleEn:"Why This PPT?", titleMr:"हे PPT का?",
-  bodyEn:`<div class="en">You don’t need metro‑city contacts. These portals bring jobs, internships, and certificates to your phone — even from Satara.</div>
-          <div class="mr">तुम्हाला मेट्रो शहरातील ओळखीची गरज नाही. ही पोर्टल नोकरी, इंटर्नशिप आणि प्रमाणपत्र तुमच्या फोनवर आणतात — साताऱ्यातूनही.</div>` },
+  bodyEn:`<div class="en">You don’t need metro‑city contacts. These portals bring jobs, internships, and certificates to your phone — even from your town.</div>
+          <div class="mr">तुम्हाला मेट्रो शहरातील ओळखीची गरज नाही. ही पोर्टल नोकरी, इंटर्नशिप आणि प्रमाणपत्र तुमच्या फोनवर आणतात — तुमच्या गावातूनही.</div>` },
 
 { emoji:"📚", titleEn:"What You Will Learn", titleMr:"तुम्ही काय शिकाल",
   bodyEn:`<ul>
@@ -240,8 +298,14 @@ const slides = [
 
 { emoji:"🧩", titleEn:"The Big Picture", titleMr:"मोठे चित्र",
   bodyEn:`<div class="grid-2">
-    <div class="card"><div class="card-title">Government Trust</div><div class="card-body">NCS · AICTE · SIDH · PMIS · NAPS</div></div>
-    <div class="card"><div class="card-title">Industry Proof</div><div class="card-body">Unstop · Forage · GitHub · LinkedIn</div></div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏛️</span><span class="card-title">Government Trust</span></div>
+      <div class="card-body">NCS · AICTE · SIDH · PMIS · NAPS</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏢</span><span class="card-title">Industry Proof</span></div>
+      <div class="card-body">Unstop · Forage · GitHub · LinkedIn</div>
+    </div>
   </div>
   <div class="en" style="margin-top:1.5rem;">8 portals = 1 strong profile.</div>
   <div class="mr">८ पोर्टल = १ मजबूत प्रोफाइल.</div>` },
@@ -250,7 +314,7 @@ const slides = [
   bodyEn:`<div class="en">“I will spend 30 minutes every day on one portal. In 90 days I will have a profile, a certificate, and a project.”</div>
           <div class="mr">“मी दररोज ३० मिनिटे एका पोर्टलवर घालवेन. ९० दिवसांत माझ्याकडे प्रोफाइल, प्रमाणपत्र आणि प्रोजेक्ट असेल.”</div>` },
 
-/* ================= PORTAL 1: NCS (6–13) ================= */
+/* ============= PORTAL 1: NCS (6–13) ============= */
 
 { emoji:"🏛️", titleEn:"National Career Service (NCS)", titleMr:"राष्ट्रीय करिअर सेवा (NCS)",
   bodyEn:`<div class="en">Government job exchange — private + government jobs, job fairs, career counselling.</div>
@@ -259,7 +323,7 @@ const slides = [
 { emoji:"💡", titleEn:"NCS — Why It Matters", titleMr:"NCS — ते का महत्त्वाचे",
   bodyEn:`<ul>
     <li>Free for every student — no fees at any stage.</li>
-    <li>60+ lakh verified employers; 4+ crore job seekers registered.[reference:0]</li>
+    <li>60+ lakh verified employers; 4+ crore job seekers registered.</li>
     <li>AI‑based resume builder and multilingual support.</li>
     <li>Works on a smartphone — no computer needed.</li>
   </ul>
@@ -269,26 +333,26 @@ const slides = [
   bodyEn:`<ul>
     <li>Job search & matching (private + government).</li>
     <li>Online & offline job fairs (Rozgar Mela).</li>
-    <li>Career counselling at 200+ Model Career Centres.[reference:1]</li>
-    <li>Free skill training (TCS iON, NSDC partners).[reference:2]</li>
+    <li>Career counselling at 200+ Model Career Centres.</li>
+    <li>Free skill training (TCS iON, NSDC partners).</li>
   </ul>
   <div class="mr">नोकरी शोध व जुळवणी (खाजगी + सरकारी). ऑनलाइन व ऑफलाइन जॉब फेअर (रोजगार मेळा). २००+ मॉडेल करिअर सेंटरमध्ये समुपदेशन. मोफत कौशल्य प्रशिक्षण (TCS iON, NSDC भागीदार).</div>` },
 
 { emoji:"📝", titleEn:"NCS — How to Register", titleMr:"NCS — नोंदणी कशी करावी",
   bodyEn:`<ul>
-    <li>Go to <strong>ncs.gov.in</strong> → click “Register” → “Job Seeker”.[reference:3]</li>
+    <li>Go to <strong>ncs.gov.in</strong> → click “Register” → “Job Seeker”.</li>
     <li>Enter mobile → OTP → Aadhaar → create password.</li>
     <li>Fill education, skills, preferred location, salary.</li>
     <li>Upload resume (PDF) + passport photo.</li>
-    <li>Get your unique <strong>NCS ID</strong> (10‑digit) — use it to track applications.[reference:4]</li>
+    <li>Get your unique <strong>NCS ID</strong> (10‑digit) — use it to track applications.</li>
   </ul>
   <div class="mr">ncs.gov.in वर जा → “Register” → “Job Seeker”. मोबाइल → OTP → आधार → पासवर्ड. शिक्षण, कौशल्य, पसंतीचे स्थान, पगार भरा. रेझ्युमे (PDF) + फोटो अपलोड करा. तुमचा <strong>NCS ID</strong> (१० अंकी) मिळवा — अर्ज ट्रॅक करण्यासाठी वापरा.</div>` },
 
 { emoji:"🔔", titleEn:"NCS — What to Expect", titleMr:"NCS — काय अपेक्षा करावी",
   bodyEn:`<ul>
-    <li>Daily/weekly SMS & email job alerts matching your profile.[reference:5]</li>
+    <li>Daily/weekly SMS & email job alerts matching your profile.</li>
     <li>Interview calls from verified employers.</li>
-    <li>Invitations to job fairs — registration on NCS is usually the entry pass.[reference:6]</li>
+    <li>Invitations to job fairs — registration on NCS is usually the entry pass.</li>
     <li>Free career counselling & aptitude testing at Model Career Centres.</li>
   </ul>
   <div class="mr">तुमच्या प्रोफाइलनुसार दररोज/दर आठवड्याला SMS व ईमेल जॉब अलर्ट. पडताळलेल्या नियोक्त्यांकडून मुलाखतीचे कॉल. जॉब फेअरचे निमंत्रण — NCS नोंदणी ही सहसा प्रवेशिका असते. मॉडेल करिअर सेंटरमध्ये मोफत समुपदेशन व ऍप्टिट्यूड चाचणी.</div>` },
@@ -302,14 +366,14 @@ const slides = [
   <div class="mr"><strong>साप्ताहिक:</strong> ३ नवीन जॉब मॅच तपासा; किमान १ ला अर्ज करा. <strong>मासिक:</strong> नवीन कौशल्य/प्रमाणपत्रांसह प्रोफाइल अपडेट करा. <strong>तिमाही:</strong> छापलेल्या रेझ्युमेसह एका जॉब फेअरला जा.</div>` },
 
 { emoji:"⚠️", titleEn:"NCS — Common Mistake to Avoid", titleMr:"NCS — टाळायची सामान्य चूक",
-  bodyEn:`<div class="en">Don’t leave your profile incomplete — NCS matches you only when skills and location are filled. Never pay anyone for NCS registration; it is 100% free.[reference:7]</div>
+  bodyEn:`<div class="en">Don’t leave your profile incomplete — NCS matches you only when skills and location are filled. Never pay anyone for NCS registration; it is 100% free.</div>
           <div class="mr">तुमचे प्रोफाइल अपूर्ण ठेवू नका — कौशल्य व स्थान भरले तरच NCS तुम्हाला जुळवते. NCS नोंदणीसाठी कोणालाही पैसे देऊ नका; ते १००% मोफत आहे.</div>` },
 
 { emoji:"✅", titleEn:"NCS — Quick Recap", titleMr:"NCS — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">1 portal · 2 minutes to register · 3 actions per week.</div>
           <div class="mr">१ पोर्टल · नोंदणीला २ मिनिटे · दर आठवड्याला ३ कृती.</div>` },
 
-/* ================= PORTAL 2: AICTE (14–21) ================= */
+/* ============= PORTAL 2: AICTE (14–21) ============= */
 
 { emoji:"🎓", titleEn:"AICTE National Internship Portal", titleMr:"AICTE राष्ट्रीय इंटर्नशिप पोर्टल",
   bodyEn:`<div class="en">Government internship pipeline for AICTE/UGC/IGNOU students — 79 lakh+ internships listed.</div>
@@ -317,25 +381,25 @@ const slides = [
 
 { emoji:"💡", titleEn:"AICTE — Why It Matters", titleMr:"AICTE — ते का महत्त्वाचे",
   bodyEn:`<ul>
-    <li><strong>Zero fees</strong> — free for students and employers; every employer signs a no‑fee declaration.[reference:8]</li>
-    <li>Stipend declared <strong>upfront</strong> and paid to your bank account.[reference:9]</li>
-    <li><strong>QR‑verifiable government certificate</strong> — recruiter can check in seconds.[reference:10]</li>
-    <li><strong>ABC credits</strong> deposited into your Academic Bank of Credits account.[reference:11]</li>
+    <li><strong>Zero fees</strong> — free for students and employers; every employer signs a no‑fee declaration.</li>
+    <li>Stipend declared <strong>upfront</strong> and paid to your bank account.</li>
+    <li><strong>QR‑verifiable government certificate</strong> — recruiter can check in seconds.</li>
+    <li><strong>ABC credits</strong> deposited into your Academic Bank of Credits account.</li>
   </ul>
   <div class="mr"><strong>शून्य शुल्क</strong> — विद्यार्थी व नियोक्त्यांसाठी मोफत; प्रत्येक नियोक्ता शुल्क‑नाही घोषणापत्रावर सही करतो. स्टायपेंड <strong>आधीच</strong> जाहीर आणि तुमच्या बँक खात्यात. <strong>QR‑पडताळणीयोग्य सरकारी प्रमाणपत्र</strong> — नियोक्ता काही सेकंदात तपासू शकतो. <strong>ABC क्रेडिट</strong> तुमच्या Academic Bank of Credits खात्यात जमा.</div>` },
 
 { emoji:"🎯", titleEn:"AICTE — What It Helps With", titleMr:"AICTE — ते कशात मदत करते",
   bodyEn:`<ul>
-    <li>Paid internships in ministries (TULIP, Army, CDAC), Fortune 500s, and MSMEs.[reference:12]</li>
-    <li>Weekly, monthly, and semester‑long formats — fits your timetable.[reference:13]</li>
-    <li>One profile goes everywhere — every application tracked.[reference:14]</li>
+    <li>Paid internships in ministries (TULIP, Army, CDAC), Fortune 500s, and MSMEs.</li>
+    <li>Weekly, monthly, and semester‑long formats — fits your timetable.</li>
+    <li>One profile goes everywhere — every application tracked.</li>
   </ul>
   <div class="mr">मंत्रालये (TULIP, Army, CDAC), फॉर्च्यून ५०० आणि MSME मध्ये पगारी इंटर्नशिप. साप्ताहिक, मासिक आणि सेमिस्टर‑लांबीचे स्वरूप — तुमच्या वेळापत्रकात बसते. एक प्रोफाइल सर्वत्र जाते — प्रत्येक अर्ज ट्रॅक होतो.</div>` },
 
 { emoji:"📝", titleEn:"AICTE — How to Use", titleMr:"AICTE — कसे वापरायचे",
   bodyEn:`<ul>
-    <li>Go to <strong>internship.aicte-india.org</strong> → sign up (college auto‑filled).[reference:15]</li>
-    <li>AI matches every live opening against your branch, year, city, skills.[reference:16]</li>
+    <li>Go to <strong>internship.aicte-india.org</strong> → sign up (college auto‑filled).</li>
+    <li>AI matches every live opening against your branch, year, city, skills.</li>
     <li>One tap to apply — stipend declared upfront, paid to your bank.</li>
     <li>Finish → download <strong>QR certificate</strong> + ABC credits.</li>
   </ul>
@@ -344,7 +408,7 @@ const slides = [
 { emoji:"🔔", titleEn:"AICTE — What to Expect", titleMr:"AICTE — काय अपेक्षा करावी",
   bodyEn:`<ul>
     <li>Government‑issued QR‑verifiable certificate.</li>
-    <li>ABC credit transfer — credits stay with you even if you change college.[reference:17]</li>
+    <li>ABC credit transfer — credits stay with you even if you change college.</li>
     <li>Lifetime LMS access for continued learning.</li>
   </ul>
   <div class="mr">सरकारी QR‑पडताळणीयोग्य प्रमाणपत्र. ABC क्रेडिट ट्रान्सफर — कॉलेज बदलला तरी क्रेडिट तुमच्यासोबत राहतात. सतत शिकण्यासाठी आजीवन LMS प्रवेश.</div>` },
@@ -357,14 +421,14 @@ const slides = [
   <div class="mr"><strong>साप्ताहिक:</strong> तुमच्या कौशल्यांशी जुळणाऱ्या २ इंटर्नशिपला अर्ज करा. <strong>मासिक:</strong> एक लहान (१–४ आठवडे) इंटर्नशिप पूर्ण करा.</div>` },
 
 { emoji:"🏡", titleEn:"AICTE — Pro Tip for Rural Students", titleMr:"AICTE — ग्रामीण विद्यार्थ्यांसाठी टिप",
-  bodyEn:`<div class="en">Choose <strong>remote / hybrid</strong> internships — no relocation cost, no hostel rent. You can do them from Satara.</div>
-          <div class="mr"><strong>रेमोट / हायब्रिड</strong> इंटर्नशिप निवडा — स्थलांतराचा खर्च नाही, हॉस्टेल भाडे नाही. तुम्ही साताऱ्यातून करू शकता.</div>` },
+  bodyEn:`<div class="en">Choose <strong>remote / hybrid</strong> internships — no relocation cost, no hostel rent. You can do them from your home town.</div>
+          <div class="mr"><strong>रेमोट / हायब्रिड</strong> इंटर्नशिप निवडा — स्थलांतराचा खर्च नाही, हॉस्टेल भाडे नाही. तुम्ही तुमच्या गावातून करू शकता.</div>` },
 
 { emoji:"✅", titleEn:"AICTE — Quick Recap", titleMr:"AICTE — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">1 profile → many ministries & companies → QR certificate + degree credits.</div>
           <div class="mr">१ प्रोफाइल → अनेक मंत्रालये व कंपन्या → QR प्रमाणपत्र + पदवी क्रेडिट.</div>` },
 
-/* ================= PORTAL 3: SIDH (22–29) ================= */
+/* ============= PORTAL 3: SIDH (22–29) ============= */
 
 { emoji:"📱", titleEn:"Skill India Digital Hub (SIDH)", titleMr:"स्किल इंडिया डिजिटल हब (SIDH)",
   bodyEn:`<div class="en">India’s national skilling platform — courses, apprenticeships, jobs, NCVET certificates in one place.</div>
@@ -372,24 +436,24 @@ const slides = [
 
 { emoji:"💡", titleEn:"SIDH — Why It Matters", titleMr:"SIDH — ते का महत्त्वाचे",
   bodyEn:`<ul>
-    <li>Free access to <strong>7,500+ skill courses</strong>.[reference:18]</li>
-    <li>AI‑based personalised recommendations.[reference:19]</li>
-    <li>NCVET‑verified digital certificates stored in DigiLocker.[reference:20]</li>
+    <li>Free access to <strong>7,500+ skill courses</strong>.</li>
+    <li>AI‑based personalised recommendations.</li>
+    <li>NCVET‑verified digital certificates stored in DigiLocker.</li>
     <li>Aadhaar‑based registration — no agent needed.</li>
   </ul>
   <div class="mr"><strong>७,५००+ कौशल्य अभ्यासक्रम</strong> मोफत. AI‑आधारित वैयक्तिकृत शिफारसी. DigiLocker मध्ये साठवलेली NCVET‑प्रमाणित डिजिटल प्रमाणपत्रे. आधार‑आधारित नोंदणी — एजंटची गरज नाही.</div>` },
 
 { emoji:"🎯", titleEn:"SIDH — What It Helps With", titleMr:"SIDH — ते कशात मदत करते",
   bodyEn:`<ul>
-    <li>Learn IT‑ITeS, retail, healthcare, electronics, BFSI.[reference:21]</li>
-    <li>Get job/apprenticeship matches through NCS integration.[reference:22]</li>
-    <li>Entrepreneurship loan options on the same dashboard.[reference:23]</li>
+    <li>Learn IT‑ITeS, retail, healthcare, electronics, BFSI.</li>
+    <li>Get job/apprenticeship matches through NCS integration.</li>
+    <li>Entrepreneurship loan options on the same dashboard.</li>
   </ul>
   <div class="mr">IT‑ITeS, रिटेल, आरोग्य, इलेक्ट्रॉनिक्स, BFSI शिका. NCS एकत्रीकरणाद्वारे नोकरी/शिकाऊ जुळवणी. त्याच डॅशबोर्डवर उद्योजकता कर्ज पर्याय.</div>` },
 
 { emoji:"📝", titleEn:"SIDH — How to Register", titleMr:"SIDH — नोंदणी कशी करावी",
   bodyEn:`<ul>
-    <li>Go to <strong>skillindiadigital.gov.in</strong> → Aadhaar e‑KYC.[reference:24]</li>
+    <li>Go to <strong>skillindiadigital.gov.in</strong> → Aadhaar e‑KYC.</li>
     <li>Verify mobile via OTP.</li>
     <li>Build profile → browse courses by sector → enrol.</li>
     <li>Complete course → receive NCVET‑verified certificate.</li>
@@ -420,7 +484,7 @@ const slides = [
   bodyEn:`<div class="en">Learn → certify → get matched → get hired. All free.</div>
           <div class="mr">शिका → प्रमाणित व्हा → जुळवा → नोकरी मिळवा. सर्व मोफत.</div>` },
 
-/* ================= PORTAL 4: PMIS (30–37) ================= */
+/* ============= PORTAL 4: PMIS (30–37) ============= */
 
 { emoji:"🇮🇳", titleEn:"PM Internship Scheme (PMIS)", titleMr:"पंतप्रधान इंटर्नशिप योजना (PMIS)",
   bodyEn:`<div class="en">12‑month paid internship in top 500 companies for youth aged 18–25.</div>
@@ -428,10 +492,10 @@ const slides = [
 
 { emoji:"💰", titleEn:"PMIS — Why It Matters", titleMr:"PMIS — ते का महत्त्वाचे",
   bodyEn:`<ul>
-    <li><strong>₹9,000/month stipend</strong> (Government + company contribution).[reference:25]</li>
-    <li><strong>₹6,000 one‑time joining grant</strong>.[reference:26]</li>
+    <li><strong>₹9,000/month stipend</strong> (Government + company contribution).</li>
+    <li><strong>₹6,000 one‑time joining grant</strong>.</li>
     <li>Insurance coverage included.</li>
-    <li>Age relaxed to <strong>18–25 years</strong>; final‑year students eligible.[reference:27]</li>
+    <li>Age relaxed to <strong>18–25 years</strong>; final‑year students eligible.</li>
   </ul>
   <div class="mr"><strong>₹९,०००/महिना स्टायपेंड</strong> (सरकार + कंपनी योगदान). <strong>₹६,००० एकवेळ सामील होण्याचे अनुदान</strong>. विमा संरक्षण समाविष्ट. वय <strong>१८–२५ वर्षे</strong>; अंतिम वर्षाचे विद्यार्थी पात्र.</div>` },
 
@@ -439,14 +503,14 @@ const slides = [
   bodyEn:`<ul>
     <li>Real industry experience with mentorship.</li>
     <li>Certificate from a top company.</li>
-    <li>6 months hands‑on training + 6 months on‑the‑job.[reference:28]</li>
+    <li>6 months hands‑on training + 6 months on‑the‑job.</li>
   </ul>
   <div class="mr">मार्गदर्शनासह प्रत्यक्ष उद्योग अनुभव. टॉप कंपनीचे प्रमाणपत्र. ६ महिने प्रात्यक्षिक प्रशिक्षण + ६ महिने कामावर.</div>` },
 
 { emoji:"📝", titleEn:"PMIS — How to Apply", titleMr:"PMIS — अर्ज कसा करावा",
   bodyEn:`<ul>
-    <li>Go to <strong>pminternship.mca.gov.in</strong> → youth registration.[reference:29]</li>
-    <li>OTP → fill personal & educational details → upload documents.[reference:30]</li>
+    <li>Go to <strong>pminternship.mca.gov.in</strong> → youth registration.</li>
+    <li>OTP → fill personal & educational details → upload documents.</li>
     <li>Select preferred sectors/companies → submit application.</li>
   </ul>
   <div class="mr">pminternship.mca.gov.in वर जा → युवा नोंदणी. OTP → वैयक्तिक व शैक्षणिक तपशील भरा → कागदपत्रे अपलोड करा. पसंतीची क्षेत्रे/कंपन्या निवडा → अर्ज सबमिट करा.</div>` },
@@ -456,14 +520,14 @@ const slides = [
     <li>Age <strong>18–25 years</strong>.</li>
     <li>Passed <strong>10th / 12th / ITI / Diploma / Graduation</strong>.</li>
     <li>Not in full‑time employment.</li>
-    <li>Family income ≤ <strong>₹8 lakh/year</strong>.[reference:31]</li>
+    <li>Family income ≤ <strong>₹8 lakh/year</strong>.</li>
   </ul>
   <div class="mr">वय <strong>१८–२५ वर्षे</strong>. <strong>१०वी / १२वी / ITI / डिप्लोमा / पदवी</strong> उत्तीर्ण. पूर्णवेळ नोकरीत नाही. कुटुंब उत्पन्न ≤ <strong>₹८ लाख/वर्ष</strong>.</div>` },
 
 { emoji:"🔔", titleEn:"PMIS — What to Expect", titleMr:"PMIS — काय अपेक्षा करावी",
   bodyEn:`<ul>
     <li>Stipend via DBT to your bank account.</li>
-    <li>6 or 9 months duration depending on role.[reference:32]</li>
+    <li>6 or 9 months duration depending on role.</li>
     <li>Hands‑on exposure in a top company.</li>
   </ul>
   <div class="mr">DBT द्वारे तुमच्या बँक खात्यात स्टायपेंड. भूमिकेनुसार ६ किंवा ९ महिने. टॉप कंपनीत प्रत्यक्ष अनुभव.</div>` },
@@ -479,7 +543,7 @@ const slides = [
   bodyEn:`<div class="en">1 year · ₹9k/month · top company certificate · insurance.</div>
           <div class="mr">१ वर्ष · ₹९ हजार/महिना · टॉप कंपनीचे प्रमाणपत्र · विमा.</div>` },
 
-/* ================= PORTAL 5: NAPS (38–45) ================= */
+/* ============= PORTAL 5: NAPS (38–45) ============= */
 
 { emoji:"🔧", titleEn:"NAPS / MY Bharat — Apprenticeships", titleMr:"NAPS / MY Bharat — शिकाऊ प्रशिक्षण",
   bodyEn:`<div class="en">National Apprenticeship Promotion Scheme — earn while you learn with government stipend support.</div>
@@ -487,25 +551,25 @@ const slides = [
 
 { emoji:"💡", titleEn:"NAPS — Why It Matters", titleMr:"NAPS — ते का महत्त्वाचे",
   bodyEn:`<ul>
-    <li>Government pays <strong>25% of stipend</strong> (up to ₹1,500/month) via DBT.[reference:33]</li>
+    <li>Government pays <strong>25% of stipend</strong> (up to ₹1,500/month) via DBT.</li>
     <li>Minimum stipend ₹5,000–₹9,000 based on qualification.</li>
-    <li>72% apprentices move to full‑time employment after training.[reference:34]</li>
+    <li>72% apprentices move to full‑time employment after training.</li>
   </ul>
   <div class="mr">सरकार स्टायपेंडच्या <strong>२५%</strong> (₹१,५००/महिना पर्यंत) DBT द्वारे देते. पात्रतेनुसार किमान स्टायपेंड ₹५,०००–₹९,०००. ७२% शिकाऊ प्रशिक्षणानंतर पूर्णवेळ नोकरीत जातात.</div>` },
 
 { emoji:"🎯", titleEn:"NAPS — What It Helps With", titleMr:"NAPS — ते कशात मदत करते",
   bodyEn:`<ul>
-    <li>On‑the‑job training in 13 top sectors (IT, BFSI, electronics, retail, etc.).[reference:35]</li>
-    <li>National Apprenticeship Certificate (NAC).[reference:36]</li>
+    <li>On‑the‑job training in 13 top sectors (IT, BFSI, electronics, retail, etc.).</li>
+    <li>National Apprenticeship Certificate (NAC).</li>
     <li>Direct link to NCS after completion.</li>
   </ul>
   <div class="mr">१३ टॉप क्षेत्रांमध्ये कामावर प्रशिक्षण (IT, BFSI, इलेक्ट्रॉनिक्स, रिटेल, इ.). राष्ट्रीय शिकाऊ प्रमाणपत्र (NAC). पूर्ण झाल्यावर NCS शी थेट जोड.</div>` },
 
 { emoji:"📝", titleEn:"NAPS — How to Register", titleMr:"NAPS — नोंदणी कशी करावी",
   bodyEn:`<ul>
-    <li>Go to <strong>apprenticeshipindia.gov.in</strong> → Aadhaar e‑KYC.[reference:37]</li>
+    <li>Go to <strong>apprenticeshipindia.gov.in</strong> → Aadhaar e‑KYC.</li>
     <li>OTP → search establishments → apply.</li>
-    <li>Also register on <strong>MY Bharat</strong> to discover NAPS + volunteering.[reference:38]</li>
+    <li>Also register on <strong>MY Bharat</strong> to discover NAPS + volunteering.</li>
   </ul>
   <div class="mr">apprenticeshipindia.gov.in वर जा → आधार e‑KYC. OTP → आस्थापना शोधा → अर्ज करा. NAPS + स्वयंसेवा शोधण्यासाठी <strong>MY Bharat</strong> वर देखील नोंदणी करा.</div>` },
 
@@ -513,7 +577,7 @@ const slides = [
   bodyEn:`<ul>
     <li>Stipend via DBT every month.</li>
     <li>Structured training with an employer.</li>
-    <li>NCVET‑approved certificate that boosts employability.[reference:39]</li>
+    <li>NCVET‑approved certificate that boosts employability.</li>
   </ul>
   <div class="mr">दर महिन्याला DBT द्वारे स्टायपेंड. नियोक्त्यासोबत संरचित प्रशिक्षण. रोजगारक्षमता वाढवणारे NCVET‑मान्य प्रमाणपत्र.</div>` },
 
@@ -532,7 +596,7 @@ const slides = [
   bodyEn:`<div class="en">Learn + earn + certificate + NCS link.</div>
           <div class="mr">शिका + कमवा + प्रमाणपत्र + NCS जोड.</div>` },
 
-/* ================= PORTAL 6: UNSTOP (46–53) ================= */
+/* ============= PORTAL 6: UNSTOP (46–53) ============= */
 
 { emoji:"🏆", titleEn:"Unstop — Hackathons & Hiring Challenges", titleMr:"Unstop — हॅकाथॉन व हायरिंग चॅलेंज",
   bodyEn:`<div class="en">Competitions, hackathons, hiring challenges, quizzes, jobs & internships for students.</div>
@@ -540,23 +604,23 @@ const slides = [
 
 { emoji:"💡", titleEn:"Unstop — Why It Matters", titleMr:"Unstop — ते का महत्त्वाचे",
   bodyEn:`<ul>
-    <li>Companies shortlist from <strong>skill proof</strong>, not just resume.[reference:40]</li>
+    <li>Companies shortlist from <strong>skill proof</strong>, not just resume.</li>
     <li>Hackathons can lead directly to interviews/offers.</li>
-    <li>3.5 million+ students; 1,000+ companies including Google, Amazon, Deloitte.[reference:41]</li>
+    <li>3.5 million+ students; 1,000+ companies including Google, Amazon, Deloitte.</li>
   </ul>
   <div class="mr">कंपन्या फक्त रेझ्युमेनुसार नाही तर <strong>कौशल्याच्या पुराव्यानुसार</strong> निवड करतात. हॅकाथॉन थेट मुलाखती/ऑफरकडे नेतात. ३५ लाख+ विद्यार्थी; Google, Amazon, Deloitte सह १,०००+ कंपन्या.</div>` },
 
 { emoji:"🎯", titleEn:"Unstop — What It Helps With", titleMr:"Unstop — ते कशात मदत करते",
   bodyEn:`<ul>
-    <li>Build portfolio projects and win prizes.[reference:42]</li>
-    <li>Get recruiter visibility through skill‑based hiring.[reference:43]</li>
-    <li>Practice coding, aptitude, and mock interviews.[reference:44]</li>
+    <li>Build portfolio projects and win prizes.</li>
+    <li>Get recruiter visibility through skill‑based hiring.</li>
+    <li>Practice coding, aptitude, and mock interviews.</li>
   </ul>
   <div class="mr">पोर्टफोलिओ प्रोजेक्ट तयार करा आणि बक्षिसे जिंका. कौशल्य‑आधारित हायरिंगद्वारे नियोक्त्यांचे लक्ष मिळवा. कोडिंग, ऍप्टिट्यूड व मॉक इंटरव्ह्यूचा सराव करा.</div>` },
 
 { emoji:"📝", titleEn:"Unstop — How to Use", titleMr:"Unstop — कसे वापरायचे",
   bodyEn:`<ul>
-    <li>Create profile → add education, skills, resume.[reference:45]</li>
+    <li>Create profile → add education, skills, resume.</li>
     <li>Register for 2–3 relevant challenges per week.</li>
     <li>Apply to jobs/internships weekly.</li>
   </ul>
@@ -566,7 +630,7 @@ const slides = [
   bodyEn:`<ul>
     <li>Prizes, certificates, interview calls.</li>
     <li>Portfolio pieces you can show in interviews.</li>
-    <li>Mock interviews and skill assessments.[reference:46]</li>
+    <li>Mock interviews and skill assessments.</li>
   </ul>
   <div class="mr">बक्षिसे, प्रमाणपत्रे, मुलाखतीचे कॉल. मुलाखतीत दाखवता येणारे पोर्टफोलिओ. मॉक इंटरव्ह्यू व कौशल्य मूल्यांकन.</div>` },
 
@@ -585,7 +649,7 @@ const slides = [
   bodyEn:`<div class="en">Prove skill → get noticed → get hired.</div>
           <div class="mr">कौशल्य सिद्ध करा → लक्षात या → नोकरी मिळवा.</div>` },
 
-/* ================= PORTAL 7: FORAGE (54–61) ================= */
+/* ============= PORTAL 7: FORAGE (54–61) ============= */
 
 { emoji:"💼", titleEn:"Forage — Virtual Internships", titleMr:"Forage — व्हर्च्युअल इंटर्नशिप",
   bodyEn:`<div class="en">Free, self‑paced virtual internships created by top companies (Google, JPMorgan, Deloitte).</div>
@@ -593,25 +657,25 @@ const slides = [
 
 { emoji:"💡", titleEn:"Forage — Why It Matters", titleMr:"Forage — ते का महत्त्वाचे",
   bodyEn:`<ul>
-    <li><strong>No application, no waitlist</strong> — start immediately.[reference:47]</li>
-    <li>Finish in <strong>1–5 hours</strong>.[reference:48]</li>
-    <li>100% free — no cost involved.[reference:49]</li>
+    <li><strong>No application, no waitlist</strong> — start immediately.</li>
+    <li>Finish in <strong>1–5 hours</strong>.</li>
+    <li>100% free — no cost involved.</li>
   </ul>
   <div class="mr"><strong>अर्ज नाही, प्रतीक्षा यादी नाही</strong> — लगेच सुरू करा. <strong>१–५ तासांत</strong> पूर्ण करा. १००% मोफत — कोणताही खर्च नाही.</div>` },
 
 { emoji:"🎯", titleEn:"Forage — What It Helps With", titleMr:"Forage — ते कशात मदत करते",
   bodyEn:`<ul>
-    <li>Real project experience from actual companies.[reference:50]</li>
-    <li>Portfolio deliverables you can show in interviews.[reference:51]</li>
-    <li>Certificate for resume & LinkedIn.[reference:52]</li>
+    <li>Real project experience from actual companies.</li>
+    <li>Portfolio deliverables you can show in interviews.</li>
+    <li>Certificate for resume & LinkedIn.</li>
   </ul>
   <div class="mr">प्रत्यक्ष कंपन्यांकडून खरा प्रोजेक्ट अनुभव. मुलाखतीत दाखवता येणारे पोर्टफोलिओ. रेझ्युमे व LinkedIn साठी प्रमाणपत्र.</div>` },
 
 { emoji:"📝", titleEn:"Forage — How to Use", titleMr:"Forage — कसे वापरायचे",
   bodyEn:`<ul>
-    <li>Go to <strong>theforage.com</strong> → browse by company/industry/skill.[reference:53]</li>
+    <li>Go to <strong>theforage.com</strong> → browse by company/industry/skill.</li>
     <li>Select a simulation → complete tasks → submit deliverables.</li>
-    <li>Download certificate → add to resume/LinkedIn.[reference:54]</li>
+    <li>Download certificate → add to resume/LinkedIn.</li>
   </ul>
   <div class="mr">theforage.com वर जा → कंपनी/उद्योग/कौशल्यानुसार शोधा. सिम्युलेशन निवडा → कार्ये पूर्ण करा → डिलिव्हरेबल्स सबमिट करा. प्रमाणपत्र डाउनलोड करा → रेझ्युमे/LinkedIn वर जोडा.</div>` },
 
@@ -619,25 +683,25 @@ const slides = [
   bodyEn:`<ul>
     <li>Personalized certificate of completion.</li>
     <li>Project files you can discuss in interviews.</li>
-    <li>Model answers for comparison.[reference:55]</li>
+    <li>Model answers for comparison.</li>
   </ul>
   <div class="mr">वैयक्तिकृत पूर्णता प्रमाणपत्र. मुलाखतीत चर्चा करता येणारे प्रोजेक्ट फाइल्स. तुलनेसाठी मॉडेल उत्तरे.</div>` },
 
 { emoji:"🗓️", titleEn:"Forage — Daily / Weekly Action", titleMr:"Forage — दररोज / दर आठवड्याला कृती",
   bodyEn:`<ul>
-    <li><strong>Monthly:</strong> complete 1 simulation (5–6 hours total).[reference:56]</li>
+    <li><strong>Monthly:</strong> complete 1 simulation (5–6 hours total).</li>
   </ul>
   <div class="mr"><strong>मासिक:</strong> १ सिम्युलेशन पूर्ण करा (एकूण ५–६ तास).</div>` },
 
 { emoji:"🌾", titleEn:"Forage — Rural Advantage", titleMr:"Forage — ग्रामीण फायदा",
-  bodyEn:`<div class="en">100% online, no cost, no relocation — perfect for Satara students.</div>
-          <div class="mr">१००% ऑनलाइन, शून्य खर्च, स्थलांतर नाही — सातारा विद्यार्थ्यांसाठी उत्तम.</div>` },
+  bodyEn:`<div class="en">100% online, no cost, no relocation — perfect for rural students.</div>
+          <div class="mr">१००% ऑनलाइन, शून्य खर्च, स्थलांतर नाही — ग्रामीण विद्यार्थ्यांसाठी उत्तम.</div>` },
 
 { emoji:"✅", titleEn:"Forage — Quick Recap", titleMr:"Forage — पटकन पुनरावलोकन",
   bodyEn:`<div class="en">1 simulation → 1 certificate → 1 strong resume line.</div>
           <div class="mr">१ सिम्युलेशन → १ प्रमाणपत्र → १ मजबूत रेझ्युमे ओळ.</div>` },
 
-/* ================= PORTAL 8: GITHUB + LINKEDIN (62–69) ================= */
+/* ============= PORTAL 8: GITHUB + LINKEDIN (62–69) ============= */
 
 { emoji:"💻", titleEn:"GitHub + LinkedIn — Your Portfolio", titleMr:"GitHub + LinkedIn — तुमचा पोर्टफोलिओ",
   bodyEn:`<div class="en">GitHub = code portfolio; LinkedIn = professional profile.</div>
@@ -645,14 +709,14 @@ const slides = [
 
 { emoji:"💡", titleEn:"GitHub + LinkedIn — Why They Matter", titleMr:"GitHub + LinkedIn — ते का महत्त्वाचे",
   bodyEn:`<ul>
-    <li>Recruiters check <strong>GitHub</strong> for real code and <strong>LinkedIn</strong> for your story — they must match.[reference:57]</li>
-    <li>Indian recruiters spend under a minute scanning your profile.[reference:58]</li>
+    <li>Recruiters check <strong>GitHub</strong> for real code and <strong>LinkedIn</strong> for your story — they must match.</li>
+    <li>Indian recruiters spend under a minute scanning your profile.</li>
   </ul>
   <div class="mr">नियोक्ते प्रत्यक्ष कोडसाठी <strong>GitHub</strong> आणि तुमच्या कथेसाठी <strong>LinkedIn</strong> तपासतात — दोन्ही जुळले पाहिजेत. भारतीय नियोक्ते तुमचे प्रोफाइल एका मिनिटापेक्षा कमी वेळात स्कॅन करतात.</div>` },
 
 { emoji:"🎯", titleEn:"GitHub + LinkedIn — What They Help With", titleMr:"GitHub + LinkedIn — ते कशात मदत करतात",
   bodyEn:`<ul>
-    <li>Show 3–5 projects with clear README.[reference:59]</li>
+    <li>Show 3–5 projects with clear README.</li>
     <li>Highlight certificates, internships, skills.</li>
     <li>Clear headline: “CS Student · Web Development”.</li>
   </ul>
@@ -660,9 +724,9 @@ const slides = [
 
 { emoji:"📝", titleEn:"GitHub — How to Start", titleMr:"GitHub — कसे सुरू करावे",
   bodyEn:`<ul>
-    <li>Create account → add profile README.[reference:60]</li>
+    <li>Create account → add profile README.</li>
     <li>Upload 1 project with a clear README.</li>
-    <li>Pin up to 6 best repositories.[reference:61]</li>
+    <li>Pin up to 6 best repositories.</li>
   </ul>
   <div class="mr">खाते तयार करा → प्रोफाइल README जोडा. स्पष्ट README सह १ प्रोजेक्ट अपलोड करा. ६ पर्यंत सर्वोत्तम रेपॉजिटरी पिन करा.</div>` },
 
@@ -692,13 +756,22 @@ const slides = [
   bodyEn:`<div class="en">Code visible + profile credible = opportunity.</div>
           <div class="mr">कोड दिसणारा + प्रोफाइल विश्वासार्ह = संधी.</div>` },
 
-/* ================= SECTION C: BRINGING IT TOGETHER (70–80) ================= */
+/* ============= SECTION C: BRINGING IT TOGETHER (70–80) ============= */
 
 { emoji:"🗺️", titleEn:"Your 90‑Day Plan", titleMr:"तुमची ९०‑दिवसांची योजना",
   bodyEn:`<div class="grid-2">
-    <div class="card"><div class="card-title">Days 1–30</div><div class="card-body">NCS + AICTE profiles</div></div>
-    <div class="card"><div class="card-title">Days 31–60</div><div class="card-body">SIDH course + Forage simulation</div></div>
-    <div class="card"><div class="card-title">Days 61–90</div><div class="card-body">Unstop challenge + GitHub project</div></div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">1️⃣</span><span class="card-title">Days 1–30</span></div>
+      <div class="card-body">NCS + AICTE profiles</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">2️⃣</span><span class="card-title">Days 31–60</span></div>
+      <div class="card-body">SIDH course + Forage simulation</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">3️⃣</span><span class="card-title">Days 61–90</span></div>
+      <div class="card-body">Unstop challenge + GitHub project</div>
+    </div>
   </div>
   <div class="mr" style="margin-top:1rem;">दिवस १–३०: NCS + AICTE प्रोफाइल. दिवस ३१–६०: SIDH कोर्स + Forage सिम्युलेशन. दिवस ६१–९०: Unstop चॅलेंज + GitHub प्रोजेक्ट.</div>` },
 
@@ -721,7 +794,7 @@ const slides = [
 { emoji:"🚫", titleEn:"What NOT to Do", titleMr:"काय करू नये",
   bodyEn:`<ul>
     <li>Don’t create profiles and disappear.</li>
-    <li>Don’t pay any agent — government portals are free.[reference:62]</li>
+    <li>Don’t pay any agent — government portals are free.</li>
     <li>Don’t ignore Marathi‑medium certificates — they are valid.</li>
   </ul>
   <div class="mr">प्रोफाइल तयार करून गायब होऊ नका. कोणत्याही एजंटला पैसे देऊ नका — सरकारी पोर्टल मोफत आहेत. मराठी माध्यमाची प्रमाणपत्रे दुर्लक्षू नका — ती वैध आहेत.</div>` },
@@ -731,8 +804,8 @@ const slides = [
           <div class="mr">प्रत्येक प्रमाणपत्राचा स्क्रीनशॉट घ्या, QR कोड जतन करा, सर्व फोनवरील “Proof Folder” मध्ये ठेवा.</div>` },
 
 { emoji:"🌟", titleEn:"Success Story Template", titleMr:"यशोगाथा टेम्पलेट",
-  bodyEn:`<div class="en">“I am a CS student from Satara. I completed 2 AICTE internships, 1 Forage simulation, and 3 GitHub projects. I got an interview call from [company].”</div>
-          <div class="mr">“मी साताऱ्यातील CS विद्यार्थी आहे. मी २ AICTE इंटर्नशिप, १ Forage सिम्युलेशन आणि ३ GitHub प्रोजेक्ट पूर्ण केले. मला [कंपनी] कडून मुलाखतीचा कॉल आला.”</div>` },
+  bodyEn:`<div class="en">“I am a CS student from a rural town. I completed 2 AICTE internships, 1 Forage simulation, and 3 GitHub projects. I got an interview call from [company].”</div>
+          <div class="mr">“मी ग्रामीण भागातील CS विद्यार्थी आहे. मी २ AICTE इंटर्नशिप, १ Forage सिम्युलेशन आणि ३ GitHub प्रोजेक्ट पूर्ण केले. मला [कंपनी] कडून मुलाखतीचा कॉल आला.”</div>` },
 
 { emoji:"🎯", titleEn:"Your First Task TODAY", titleMr:"तुमचे पहिले काम आज",
   bodyEn:`<div class="en">Open <strong>ncs.gov.in</strong> and register. That’s it.</div>
@@ -751,13 +824,14 @@ const slides = [
           <div class="mr">सरकारी पोर्टल <strong>मोफत</strong> आहेत. या सेवांसाठी कोणालाही पैसे देऊ नका.</div>` },
 
 { emoji:"🙏", titleEn:"Thank You", titleMr:"धन्यवाद",
-  bodyEn:`<div class="en">Dr Sachin Ambekar · For Satara CS Students · 2026</div>
-          <div class="mr">डॉ. सचिन आंबेकर · सातारा CS विद्यार्थ्यांसाठी · २०२६</div>` }
+  bodyEn:`<div class="en"><strong>Dr Sachin Ambekar</strong></div>
+          <div class="mr">डॉ. सचिन आंबेकर</div>
+          <div style="margin-top:1rem;font-size:1rem;color:#64748b;">Career Guidance Session for CS Students</div>` }
 
 ];
 
 /* ============================================================
-   RENDER SLIDES
+   RENDER ALL SLIDES
    ============================================================ */
 const deck = document.getElementById('deck');
 slides.forEach((s, i) => {
@@ -765,6 +839,7 @@ slides.forEach((s, i) => {
   div.className = 'slide' + (i === 0 ? ' active' : '');
   div.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
   div.innerHTML = `
+    <div class="slide-badge">SLIDE ${String(i + 1).padStart(2, '0')}</div>
     <div class="emoji">${s.emoji || '📌'}</div>
     <h1>${s.titleEn}</h1>
     <h2>${s.titleMr}</h2>
@@ -774,13 +849,13 @@ slides.forEach((s, i) => {
 });
 
 /* ============================================================
-   NAVIGATION
+   NAVIGATION LOGIC
    ============================================================ */
 let current = 0;
 const total = slides.length;
 const slideEls = document.querySelectorAll('.slide');
 const counter = document.getElementById('counter');
-const progressBar = document.getElementById('progress-bar');
+const topProgress = document.getElementById('topProgress');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 
@@ -792,22 +867,29 @@ function showSlide(index) {
   slideEls[current].classList.add('active');
   slideEls[current].setAttribute('aria-hidden', 'false');
   counter.textContent = `${current + 1} / ${total}`;
-  progressBar.style.width = ((current + 1) / total * 100) + '%';
+  topProgress.style.width = ((current + 1) / total * 100) + '%';
   prevBtn.disabled = current === 0;
   nextBtn.disabled = current === total - 1;
+  slideEls[current].scrollTop = 0;
 }
 
 prevBtn.addEventListener('click', () => showSlide(current - 1));
 nextBtn.addEventListener('click', () => showSlide(current + 1));
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(current + 1); }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(current - 1); }
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault(); showSlide(current + 1);
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault(); showSlide(current - 1);
+  }
+  if (e.key === 'Home') { e.preventDefault(); showSlide(0); }
+  if (e.key === 'End') { e.preventDefault(); showSlide(total - 1); }
 });
 
 document.getElementById('fullscreen').addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
+    document.documentElement.requestFullscreen().catch(() => {});
   } else {
     document.exitFullscreen();
   }
